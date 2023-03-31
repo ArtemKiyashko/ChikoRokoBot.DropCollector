@@ -25,7 +25,7 @@ namespace ChikoRokoBot.DropCollector
         }
 
         [FunctionName("DropCollector")]
-        public async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log)
+        public async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
         {
             var document = await _browsingContext.OpenAsync(_options.Url.AbsoluteUri);
             
