@@ -1,5 +1,4 @@
-﻿using System;
-using AngleSharp;
+﻿using AngleSharp;
 using Azure.Identity;
 using Azure.Storage.Queues;
 using ChikoRokoBot.DropCollector.Options;
