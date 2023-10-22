@@ -10,9 +10,11 @@
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.0" />
     <PackageReference Include="AngleSharp" Version="1.0.5" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.16.0" />
+    <PackageReference Include="AngleSharp.Io" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Options\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -25,5 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Options\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>

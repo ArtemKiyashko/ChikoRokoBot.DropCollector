@@ -1,6 +1,6 @@
-﻿using AngleSharp;
-using Azure.Identity;
+﻿using Azure.Identity;
 using Azure.Storage.Queues;
+using ChikoRokoBot.DropCollector.Extensions;
 using ChikoRokoBot.DropCollector.Options;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Azure;
@@ -13,7 +13,7 @@ namespace ChikoRokoBot.DropCollector
 	public class Startup : FunctionsStartup
 	{
         private IConfigurationRoot _functionConfig;
-        private DropCollectorOptions _dropCollectorOptions = new();
+        private readonly DropCollectorOptions _dropCollectorOptions = new();
 
         public override void Configure(IFunctionsHostBuilder builder)
         {
@@ -21,10 +21,11 @@ namespace ChikoRokoBot.DropCollector
                 .AddEnvironmentVariables()
                 .Build();
 
-            builder.Services.Configure<DropCollectorOptions>(_functionConfig.GetSection("DropCollectorOptions"));
-            _functionConfig.GetSection("DropCollectorOptions").Bind(_dropCollectorOptions);
+            builder.Services.Configure<DropCollectorOptions>(_functionConfig.GetSection(nameof(DropCollectorOptions)));
 
-            builder.Services.AddTransient<IBrowsingContext>((provider) => { return new BrowsingContext(Configuration.Default.WithDefaultLoader()); });
+            _functionConfig.GetSection(nameof(DropCollectorOptions)).Bind(_dropCollectorOptions);
+
+            builder.Services.AddBrowsingContext(_functionConfig);
 
             builder.Services.AddAzureClients(clientBuilder => {
                 clientBuilder.UseCredential(new DefaultAzureCredential());
